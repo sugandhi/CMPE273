@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CMPE-273-Lab2" default="createwar">
+
+	<property name="tomcat.home" value="/apps/apache-tomcat-7.0.29" />
+	<property name="server.dir" value="." />
+	<property name="server.war.dir" value="${server.dir}/war" />
+	<property name="server.build.dir" value="${server.dir}/build" />
+
+	<path id="compileserver.classpath">
+		<fileset dir="${server.dir}/WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${tomcat.home}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="clean">
+		<delete dir="${server.build.dir}" />
+		<delete dir="${server.war.dir}" />
+	</target>	
+
+	<target name="init" depends="clean">
+		<mkdir dir="${server.build.dir}" />
+		<mkdir dir="${server.war.dir}" />
+	</target>
+
+	<target name="compileserver">
+		<delete dir="${server.build.dir}" />
+		<mkdir dir="${server.build.dir}" />
+		<javac includeantruntime="false" debug="true" debuglevel="lines,source" srcdir="${server.dir}/src" destdir="${server.build.dir}">
+			<classpath refid="compileserver.classpath" />
+		</javac>
+	</target>
+
+	<target name="createserverjar" description="Create marketserver.jar">
+		<delete file="${server.dir}/WebContent/WEB-INF/lib/marketserver.jar" />
+		<jar destfile="${server.dir}/WebContent/WEB-INF/lib/marketserver.jar">
+			<fileset dir="${server.build.dir}" excludes="**/*.deprecated" />
+		</jar>
+	</target>
+
+	<target name="createwar" depends="init,compileserver,createserverjar">
+		<war destfile="${server.war.dir}/CMPE-273-Lab2.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent">
+				<exclude name="resources/"/>
+			</fileset>
+		</war>
+		<delete dir="${server.build.dir}" />
+	</target>
+</project>

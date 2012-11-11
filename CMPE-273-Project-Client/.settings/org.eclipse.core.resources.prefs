@@ -1,0 +1,12 @@
+#Wed Oct 31 15:12:32 PDT 2012
+eclipse.preferences.version=1
+encoding//src/DefaultNamespace/VideoLibrarySystem.java=UTF-8
+encoding//src/DefaultNamespace/VideoLibrarySystemService.java=UTF-8
+encoding//src/DefaultNamespace/VideoLibrarySystemServiceLocator.java=UTF-8
+encoding//src/DefaultNamespace/VideoLibrarySystemSoapBindingStub.java=UTF-8
+encoding//src/beans/InvoiceInfo.java=UTF-8
+encoding//src/beans/MemberInfo.java=UTF-8
+encoding//src/beans/MovieInfo.java=UTF-8
+encoding//src/exceptions/CustomException.java=UTF-8
+encoding//src/exceptions/DataSourceException.java=UTF-8
+encoding//src/exceptions/InvalidArgumentException.java=UTF-8

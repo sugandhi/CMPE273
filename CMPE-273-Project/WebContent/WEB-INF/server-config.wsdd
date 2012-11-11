@@ -1,0 +1,155 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value="/workfolder/workspaces/development/apple/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CMPE-273-Project/WEB-INF/attachments"/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="VideoLibrarySystem" provider="java:RPC" style="wrapped" use="literal">
+  <ns3:operation name="getMembers" qname="ns1:getMembers" returnQName="ns1:getMembersReturn" returnType="ns2:MemberInfo" soapAction="" xmlns:ns1="http://DefaultNamespace" xmlns:ns2="http://beans" xmlns:ns3="http://xml.apache.org/axis/wsdd/">
+   <ns3:parameter qname="ns1:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns4:fault class="exceptions.DataSourceException" qname="ns1:fault" type="ns3:DataSourceException" xmlns:ns3="http://exceptions" xmlns:ns4="http://xml.apache.org/axis/wsdd/"/>
+   <ns3:fault class="exceptions.CustomException" qname="ns1:fault1" type="ns4:CustomException" xmlns:ns4="http://exceptions"/>
+  </ns3:operation>
+  <ns1:operation name="addMember" qname="ns5:addMember" soapAction="" xmlns:ns5="http://DefaultNamespace">
+   <ns1:parameter qname="ns5:firstname" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:lastname" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:street1" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:street2" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:city" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:state" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:zipCode" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:phoneNo" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns5:premium" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns5:fault" type="ns6:DataSourceException" xmlns:ns6="http://exceptions"/>
+   <ns1:fault class="exceptions.CustomException" qname="ns5:fault1" type="ns7:CustomException" xmlns:ns7="http://exceptions"/>
+   <ns1:fault class="exceptions.InvalidArgumentException" qname="ns5:fault2" type="ns8:InvalidArgumentException" xmlns:ns8="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="signIn" qname="ns9:signIn" returnQName="ns9:signInReturn" returnType="ns10:MemberInfo" soapAction="" xmlns:ns10="http://beans" xmlns:ns9="http://DefaultNamespace">
+   <ns1:parameter qname="ns9:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns9:password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns9:fault" type="ns11:DataSourceException" xmlns:ns11="http://exceptions"/>
+   <ns1:fault class="exceptions.CustomException" qname="ns9:fault1" type="ns12:CustomException" xmlns:ns12="http://exceptions"/>
+   <ns1:fault class="exceptions.InvalidArgumentException" qname="ns9:fault2" type="ns13:InvalidArgumentException" xmlns:ns13="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="signOut" qname="ns14:signOut" soapAction="" xmlns:ns14="http://DefaultNamespace">
+   <ns1:parameter qname="ns14:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns14:fault" type="ns15:DataSourceException" xmlns:ns15="http://exceptions"/>
+   <ns1:fault class="exceptions.CustomException" qname="ns14:fault1" type="ns16:CustomException" xmlns:ns16="http://exceptions"/>
+   <ns1:fault class="exceptions.InvalidArgumentException" qname="ns14:fault2" type="ns17:InvalidArgumentException" xmlns:ns17="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="deleteMember" qname="ns18:deleteMember" soapAction="" xmlns:ns18="http://DefaultNamespace">
+   <ns1:parameter qname="ns18:memberInfo" type="ns19:MemberInfo" xmlns:ns19="http://beans"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns18:fault" type="ns20:DataSourceException" xmlns:ns20="http://exceptions"/>
+   <ns1:fault class="exceptions.CustomException" qname="ns18:fault1" type="ns21:CustomException" xmlns:ns21="http://exceptions"/>
+   <ns1:fault class="exceptions.InvalidArgumentException" qname="ns18:fault2" type="ns22:InvalidArgumentException" xmlns:ns22="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="editMember" qname="ns23:editMember" soapAction="" xmlns:ns23="http://DefaultNamespace">
+   <ns1:parameter qname="ns23:memberInfo" type="ns24:MemberInfo" xmlns:ns24="http://beans"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns23:fault" type="ns25:DataSourceException" xmlns:ns25="http://exceptions"/>
+   <ns1:fault class="exceptions.CustomException" qname="ns23:fault1" type="ns26:CustomException" xmlns:ns26="http://exceptions"/>
+   <ns1:fault class="exceptions.InvalidArgumentException" qname="ns23:fault2" type="ns27:InvalidArgumentException" xmlns:ns27="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="addMovie" qname="ns28:addMovie" returnQName="ns28:addMovieReturn" returnType="ns29:MovieInfo" soapAction="" xmlns:ns28="http://DefaultNamespace" xmlns:ns29="http://beans">
+   <ns1:parameter qname="ns28:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:name" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:banner" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:releaseTime" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:rent" type="xsd:float" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:category" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:copies" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns28:summary" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:fault class="exceptions.DataSourceException" qname="ns28:fault" type="ns30:DataSourceException" xmlns:ns30="http://exceptions"/>
+  </ns1:operation>
+  <ns1:operation name="editMovie" qname="ns31:editMovie" soapAction="" xmlns:ns31="http://DefaultNamespace">
+   <ns1:parameter qname="ns31:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns31:movie" type="ns32:MovieInfo" xmlns:ns32="http://beans"/>
+  </ns1:operation>
+  <ns1:operation name="deleteMovie" qname="ns33:deleteMovie" soapAction="" xmlns:ns33="http://DefaultNamespace">
+   <ns1:parameter qname="ns33:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns33:movie" type="ns34:MovieInfo" xmlns:ns34="http://beans"/>
+  </ns1:operation>
+  <ns1:operation name="getMovies" qname="ns35:getMovies" returnQName="ns35:getMoviesReturn" returnType="ns36:MovieInfo" soapAction="" xmlns:ns35="http://DefaultNamespace" xmlns:ns36="http://beans">
+   <ns1:parameter qname="ns35:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="rentMovie" qname="ns37:rentMovie" returnQName="ns37:rentMovieReturn" returnType="ns38:MemberInfo" soapAction="" xmlns:ns37="http://DefaultNamespace" xmlns:ns38="http://beans">
+   <ns1:parameter qname="ns37:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns37:movie" type="ns38:MovieInfo"/>
+  </ns1:operation>
+  <ns1:operation name="returnMovie" qname="ns39:returnMovie" returnQName="ns39:returnMovieReturn" returnType="ns40:MemberInfo" soapAction="" xmlns:ns39="http://DefaultNamespace" xmlns:ns40="http://beans">
+   <ns1:parameter qname="ns39:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns39:movie" type="ns40:MovieInfo"/>
+  </ns1:operation>
+  <ns1:operation name="payBalance" qname="ns41:payBalance" returnQName="ns41:payBalanceReturn" returnType="ns42:MemberInfo" soapAction="" xmlns:ns41="http://DefaultNamespace" xmlns:ns42="http://beans">
+   <ns1:parameter qname="ns41:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns41:amount" type="xsd:float" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns41:ccNum" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns41:ccName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="generateBill" qname="ns43:generateBill" returnQName="ns43:generateBillReturn" returnType="ns44:MemberInfo" soapAction="" xmlns:ns43="http://DefaultNamespace" xmlns:ns44="http://beans">
+   <ns1:parameter qname="ns43:email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="generateBill addMovie editMember returnMovie getMembers deleteMember editMovie getMovies addMember payBalance rentMovie signIn signOut deleteMovie"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="VideoLibrarySystem"/>
+  <ns1:parameter name="className" value="VideoLibrarySystem"/>
+  <ns1:parameter name="wsdlServicePort" value="VideoLibrarySystem"/>
+  <ns1:parameter name="schemaQualified" value="http://exceptions,http://beans,http://DefaultNamespace"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
+  <ns1:parameter name="wsdlServiceElement" value="VideoLibrarySystemService"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns45:MovieInfo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.MovieInfo" xmlns:ns45="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns46:InvoiceInfo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.InvoiceInfo" xmlns:ns46="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns47:DataSourceException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:exceptions.DataSourceException" xmlns:ns47="http://exceptions"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns48:MemberInfo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.MemberInfo" xmlns:ns48="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns49:InvalidArgumentException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:exceptions.InvalidArgumentException" xmlns:ns49="http://exceptions"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns50:CustomException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:exceptions.CustomException" xmlns:ns50="http://exceptions"/>
+  <ns1:arrayMapping innerType="ns52:InvoiceInfo" languageSpecificType="java:beans.InvoiceInfo[]" qname="ns51:ArrayOf_tns1_InvoiceInfo" xmlns:ns51="http://DefaultNamespace" xmlns:ns52="http://beans"/>
+  <ns1:arrayMapping innerType="ns54:MovieInfo" languageSpecificType="java:beans.MovieInfo[]" qname="ns53:ArrayOf_tns1_MovieInfo" xmlns:ns53="http://DefaultNamespace" xmlns:ns54="http://beans"/>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>

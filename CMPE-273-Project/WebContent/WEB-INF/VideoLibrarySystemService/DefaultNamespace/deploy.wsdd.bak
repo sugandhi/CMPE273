@@ -1,0 +1,173 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from VideoLibrarySystemService WSDL service -->
+
+  <service name="VideoLibrarySystem" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
+      <parameter name="wsdlServiceElement" value="VideoLibrarySystemService"/>
+      <parameter name="schemaQualified" value="http://exceptions,http://beans,http://DefaultNamespace"/>
+      <parameter name="wsdlServicePort" value="VideoLibrarySystem"/>
+      <parameter name="className" value="DefaultNamespace.VideoLibrarySystemSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="VideoLibrarySystem"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getMembers" qname="operNS:getMembers" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:getMembersReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="addMember" qname="operNS:addMember" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:firstname" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:lastname" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:street1" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:street2" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:city" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:state" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:zipCode" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:phoneNo" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:premium" xmlns:pns="http://DefaultNamespace" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+        <fault name="InvalidArgumentException" qname="fns:fault2" xmlns:fns="http://DefaultNamespace" class="exceptions.InvalidArgumentException" type="tns:InvalidArgumentException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="signIn" qname="operNS:signIn" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:signInReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+        <fault name="InvalidArgumentException" qname="fns:fault2" xmlns:fns="http://DefaultNamespace" class="exceptions.InvalidArgumentException" type="tns:InvalidArgumentException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="signOut" qname="operNS:signOut" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+        <fault name="InvalidArgumentException" qname="fns:fault2" xmlns:fns="http://DefaultNamespace" class="exceptions.InvalidArgumentException" type="tns:InvalidArgumentException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="deleteMember" qname="operNS:deleteMember" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:memberInfo" xmlns:pns="http://DefaultNamespace" type="tns:MemberInfo" xmlns:tns="http://beans"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+        <fault name="InvalidArgumentException" qname="fns:fault2" xmlns:fns="http://DefaultNamespace" class="exceptions.InvalidArgumentException" type="tns:InvalidArgumentException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="editMember" qname="operNS:editMember" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:memberInfo" xmlns:pns="http://DefaultNamespace" type="tns:MemberInfo" xmlns:tns="http://beans"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+        <fault name="CustomException" qname="fns:fault1" xmlns:fns="http://DefaultNamespace" class="exceptions.CustomException" type="tns:CustomException" xmlns:tns="http://exceptions"/>
+        <fault name="InvalidArgumentException" qname="fns:fault2" xmlns:fns="http://DefaultNamespace" class="exceptions.InvalidArgumentException" type="tns:InvalidArgumentException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="addMovie" qname="operNS:addMovie" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:addMovieReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MovieInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:name" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:banner" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:releaseTime" xmlns:pns="http://DefaultNamespace" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:rent" xmlns:pns="http://DefaultNamespace" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:category" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:copies" xmlns:pns="http://DefaultNamespace" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:summary" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="DataSourceException" qname="fns:fault" xmlns:fns="http://DefaultNamespace" class="exceptions.DataSourceException" type="tns:DataSourceException" xmlns:tns="http://exceptions"/>
+      </operation>
+      <operation name="editMovie" qname="operNS:editMovie" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:movie" xmlns:pns="http://DefaultNamespace" type="tns:MovieInfo" xmlns:tns="http://beans"/>
+      </operation>
+      <operation name="deleteMovie" qname="operNS:deleteMovie" xmlns:operNS="http://DefaultNamespace" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:movie" xmlns:pns="http://DefaultNamespace" type="tns:MovieInfo" xmlns:tns="http://beans"/>
+      </operation>
+      <operation name="getMovies" qname="operNS:getMovies" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:getMoviesReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MovieInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="rentMovie" qname="operNS:rentMovie" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:rentMovieReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:movie" xmlns:pns="http://DefaultNamespace" type="tns:MovieInfo" xmlns:tns="http://beans"/>
+      </operation>
+      <operation name="returnMovie" qname="operNS:returnMovie" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:returnMovieReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:movie" xmlns:pns="http://DefaultNamespace" type="tns:MovieInfo" xmlns:tns="http://beans"/>
+      </operation>
+      <operation name="payBalance" qname="operNS:payBalance" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:payBalanceReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:amount" xmlns:pns="http://DefaultNamespace" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:ccNum" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:ccName" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="generateBill" qname="operNS:generateBill" xmlns:operNS="http://DefaultNamespace" returnQName="retNS:generateBillReturn" xmlns:retNS="http://DefaultNamespace" returnType="rtns:MemberInfo" xmlns:rtns="http://beans" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://DefaultNamespace" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="generateBill addMovie editMember returnMovie getMembers deleteMember editMovie getMovies addMember payBalance rentMovie signIn signOut deleteMovie"/>
+
+      <typeMapping
+        xmlns:ns="http://beans"
+        qname="ns:MovieInfo"
+        type="java:beans.MovieInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://beans"
+        qname="ns:InvoiceInfo"
+        type="java:beans.InvoiceInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://exceptions"
+        qname="ns:DataSourceException"
+        type="java:exceptions.DataSourceException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://DefaultNamespace"
+        qname="ns:ArrayOf_tns1_InvoiceInfo"
+        type="java:beans.InvoiceInfo[]"
+        innerType="cmp-ns:InvoiceInfo" xmlns:cmp-ns="http://beans"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://DefaultNamespace"
+        qname="ns:ArrayOf_tns1_MovieInfo"
+        type="java:beans.MovieInfo[]"
+        innerType="cmp-ns:MovieInfo" xmlns:cmp-ns="http://beans"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://beans"
+        qname="ns:MemberInfo"
+        type="java:beans.MemberInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://exceptions"
+        qname="ns:InvalidArgumentException"
+        type="java:exceptions.InvalidArgumentException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://exceptions"
+        qname="ns:CustomException"
+        type="java:exceptions.CustomException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

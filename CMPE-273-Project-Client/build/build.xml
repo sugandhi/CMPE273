@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="GenevaServers" default="createwar">
+
+	<property name="tomcat.home" value="../tomcat" />
+	<property name="genevaservers.dir" value="." />
+	<property name="server.war.dir" value="${genevaservers.dir}/war" />
+	<property name="genevaapi.dir" value="../GenevaAPI-JBoss" />
+	<property name="api.build.dir" value="${genevaapi.dir}/build" />
+	<property name="server.build.dir" value="${genevaservers.dir}/build" />
+
+	<property name="emma.meta.file" value="emma/coverage.em" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	  <classpath>
+	    <pathelement location="${genevaservers.dir}/WebContent/resources/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+
+	<path id="emma.lib">
+		<pathelement location="../Repository/emma.jar" />
+		<pathelement location="../Repository/emma_ant.jar" />
+	</path>
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
+	<path id="compileserver.classpath">
+		<fileset dir="${genevaservers.dir}/WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${tomcat.home}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="compileapi.classpath">
+		<fileset dir="${genevaapi.dir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${api.build.dir}" />
+		<mkdir dir="${server.build.dir}" />
+		<mkdir dir="${server.war.dir}" />
+	</target>
+
+	<target name="compileclient">
+		<javac destdir="${api.build.dir}" includeantruntime="false" debug="true" debuglevel="lines,source" srcdir="${genevaapi.dir}/src">
+			<classpath refid="compileapi.classpath" />
+		</javac>
+	</target>
+
+	<target name="createapijar" description="Create geneva.jar">
+		<delete file="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaapi.jar"/>
+		<jar destfile="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaapi.jar">
+			<fileset dir="${api.build.dir}" excludes="**/*.deprecated" />
+			<zipfileset includes="**/*.class" src="${genevaapi.dir}/lib/json_simple-1.1.jar" />
+			<zipfileset includes="**/*.class" src="${genevaapi.dir}/lib/geneva-httpclient.jar" />
+		</jar>
+		<delete dir="${api.build.dir}" />
+	</target>
+
+	<target name="compileserver">
+		<delete dir="${server.build.dir}" />
+		<mkdir dir="${server.build.dir}" />
+		<javac includeantruntime="false" debug="true" debuglevel="lines,source" srcdir="${genevaservers.dir}/src" destdir="${server.build.dir}">
+			<classpath refid="compileserver.classpath" />
+		</javac>
+	</target>
+
+	<target name="createserverjar" description="Create genevaserver.jar">
+		<delete file="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaserver.jar" />
+		<jar destfile="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaserver.jar">
+			<fileset dir="${server.build.dir}" excludes="**/*.deprecated" />
+		</jar>
+	</target>
+
+	<target name="instrumentjars" if="emma.enabled" >
+        <copy file="../Repository/emma.jar" tofile="${genevaservers.dir}/WebContent/WEB-INF/lib/emma.jar" />
+		<emma enabled="${emma.enabled}" verbosity="verbose">
+			<instr metadatafile="${emma.meta.file}" merge="true" mode="overwrite">
+				<instrpath>
+          			<fileset file="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaserver.jar" />
+      				<fileset file="${genevaservers.dir}/WebContent/WEB-INF/lib/genevaapi.jar" />
+        		</instrpath>
+				<filter includes="com.apple.geneva.*, com.apple.ist.ets.geneva.*" />
+				<filter excludes="org.apache.*"/>
+			</instr>
+		</emma>
+	</target>
+	
+	<target name="createcontents" depends="init" description="Creates contents of WebContent folder">
+		<if>
+			<equals arg1="${build.env}" arg2="uat" />
+			<then>
+				<echo>Configuring war for TEST</echo>
+				<copy tofile="WebContent/WEB-INF/datasources.properties" file="WebContent/resources/datasources_t.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/geneva.properties" file="WebContent/resources/geneva_t.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/geneva-api.properties" file="WebContent/resources/geneva-api_t.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/genevakeystore.pkcs" file="WebContent/resources/genevakeystore_t.pkcs" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/hubble_stats.properties" file="WebContent/resources/hubble_stats_t.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/log4j.properties" file="WebContent/resources/log4j_t.properties" overwrite="true"/>
+			</then>
+			<elseif>
+				<equals arg1="${build.env}" arg2="prod" />
+				<then>
+					<echo>Configuring war for Production</echo>
+					<copy tofile="WebContent/WEB-INF/datasources.properties" file="WebContent/resources/datasources_p.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva.properties" file="WebContent/resources/geneva_p.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva-api.properties" file="WebContent/resources/geneva-api_p.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/genevakeystore.pkcs" file="WebContent/resources/genevakeystore_p.pkcs" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/hubble_stats.properties" file="WebContent/resources/hubble_stats_p.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/log4j.properties" file="WebContent/resources/log4j_p.properties" overwrite="true"/>
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${build.env}" arg2="aos" />
+				<then>
+					<echo>Configuring war for Production</echo>
+					<copy tofile="WebContent/WEB-INF/datasources.properties" file="WebContent/resources/datasources_a.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva.properties" file="WebContent/resources/geneva_a.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva-api.properties" file="WebContent/resources/geneva-api_a.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/genevakeystore.pkcs" file="WebContent/resources/genevakeystore_a.pkcs" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/hubble_stats.properties" file="WebContent/resources/hubble_stats_a.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/log4j.properties" file="WebContent/resources/log4j_a.properties" overwrite="true"/>
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${build.env}" arg2="qa" />
+				<then>
+					<echo>Configuring war for QA</echo>
+					<copy tofile="WebContent/WEB-INF/datasources.properties" file="WebContent/resources/datasources_q.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva.properties" file="WebContent/resources/geneva_q.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/geneva-api.properties" file="WebContent/resources/geneva-api_q.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/genevakeystore.pkcs" file="WebContent/resources/genevakeystore_q.pkcs" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/hubble_stats.properties" file="WebContent/resources/hubble_stats_q.properties" overwrite="true"/>
+					<copy tofile="WebContent/WEB-INF/log4j.properties" file="WebContent/resources/log4j_q.properties" overwrite="true"/>
+				</then>
+			</elseif>
+			<else>
+				<echo>Configuring war for DEV</echo>
+				<copy tofile="WebContent/WEB-INF/datasources.properties" file="WebContent/resources/datasources_d.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/geneva.properties" file="WebContent/resources/geneva_d.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/geneva-api.properties" file="WebContent/resources/geneva-api_d.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/genevakeystore.pkcs" file="WebContent/resources/genevakeystore_d.pkcs" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/hubble_stats.properties" file="WebContent/resources/hubble_stats_d.properties" overwrite="true"/>
+				<copy tofile="WebContent/WEB-INF/log4j.properties" file="WebContent/resources/log4j_d.properties" overwrite="true"/>
+			</else>
+		</if>
+	</target>
+
+	<target name="createwar" depends="init,compileclient,createapijar,compileserver,createserverjar,instrumentjars,createcontents">
+		<war destfile="${server.war.dir}/GenevaServers.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent">
+				<exclude name="resources/"/>
+			</fileset>
+		</war>
+		<delete dir="${server.build.dir}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${api.build.dir}" />
+		<delete dir="${server.build.dir}" />
+		<delete dir="${server.war.dir}" />
+	</target>
+
+</project>

@@ -1,0 +1,1156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://DefaultNamespace" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://DefaultNamespace" xmlns:intf="http://DefaultNamespace" xmlns:tns1="http://beans" xmlns:tns2="http://exceptions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://DefaultNamespace" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans"/>
+   <import namespace="http://exceptions"/>
+   <element name="getMembers">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMembersResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getMembersReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns1_InvoiceInfo">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:InvoiceInfo"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_MovieInfo">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:MovieInfo"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="tns2:DataSourceException"/>
+   <element name="fault1" type="tns2:CustomException"/>
+   <element name="addMember">
+    <complexType>
+     <sequence>
+      <element name="firstname" type="xsd:string"/>
+      <element name="lastname" type="xsd:string"/>
+      <element name="street1" type="xsd:string"/>
+      <element name="street2" type="xsd:string"/>
+      <element name="city" type="xsd:string"/>
+      <element name="state" type="xsd:string"/>
+      <element name="zipCode" type="xsd:string"/>
+      <element name="email" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="phoneNo" type="xsd:string"/>
+      <element name="premium" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addMemberResponse">
+    <complexType/>
+   </element>
+   <element name="fault2" type="tns2:InvalidArgumentException"/>
+   <element name="signIn">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="signInResponse">
+    <complexType>
+     <sequence>
+      <element name="signInReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="signOut">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="signOutResponse">
+    <complexType/>
+   </element>
+   <element name="deleteMember">
+    <complexType>
+     <sequence>
+      <element name="memberInfo" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMemberResponse">
+    <complexType/>
+   </element>
+   <element name="editMember">
+    <complexType>
+     <sequence>
+      <element name="memberInfo" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="editMemberResponse">
+    <complexType/>
+   </element>
+   <element name="addMovie">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="name" type="xsd:string"/>
+      <element name="banner" type="xsd:string"/>
+      <element name="releaseTime" type="xsd:long"/>
+      <element name="rent" type="xsd:float"/>
+      <element name="category" type="xsd:string"/>
+      <element name="copies" type="xsd:int"/>
+      <element name="summary" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addMovieResponse">
+    <complexType>
+     <sequence>
+      <element name="addMovieReturn" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="editMovie">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="movie" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="editMovieResponse">
+    <complexType/>
+   </element>
+   <element name="deleteMovie">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="movie" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMovieResponse">
+    <complexType/>
+   </element>
+   <element name="getMovies">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMoviesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getMoviesReturn" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rentMovie">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="movie" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rentMovieResponse">
+    <complexType>
+     <sequence>
+      <element name="rentMovieReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="returnMovie">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="movie" type="tns1:MovieInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="returnMovieResponse">
+    <complexType>
+     <sequence>
+      <element name="returnMovieReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="payBalance">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+      <element name="amount" type="xsd:float"/>
+      <element name="ccNum" type="xsd:string"/>
+      <element name="ccName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="payBalanceResponse">
+    <complexType>
+     <sequence>
+      <element name="payBalanceReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generateBill">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generateBillResponse">
+    <complexType>
+     <sequence>
+      <element name="generateBillReturn" type="tns1:MemberInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://DefaultNamespace"/>
+   <import namespace="http://exceptions"/>
+   <complexType name="InvoiceInfo">
+    <sequence>
+     <element name="invoiceAmount" type="xsd:float"/>
+     <element name="invoiceDate" nillable="true" type="xsd:string"/>
+     <element name="invoiceId" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="MovieInfo">
+    <sequence>
+     <element name="availableCopies" type="xsd:int"/>
+     <element name="category" nillable="true" type="xsd:string"/>
+     <element name="movieBanner" nillable="true" type="xsd:string"/>
+     <element name="movieId" type="xsd:int"/>
+     <element name="movieName" nillable="true" type="xsd:string"/>
+     <element name="movieSummary" nillable="true" type="xsd:string"/>
+     <element name="releaseDate" nillable="true" type="xsd:string"/>
+     <element name="rentAmount" type="xsd:float"/>
+     <element name="rentedCopies" type="xsd:int"/>
+     <element name="rentedDate" nillable="true" type="xsd:string"/>
+     <element name="rentedMovieId" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="MemberInfo">
+    <sequence>
+     <element name="accessTime" type="xsd:long"/>
+     <element name="active" type="xsd:boolean"/>
+     <element name="balance" type="xsd:float"/>
+     <element name="city" nillable="true" type="xsd:string"/>
+     <element name="createDate" nillable="true" type="xsd:string"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="expired" type="xsd:boolean"/>
+     <element name="firstName" nillable="true" type="xsd:string"/>
+     <element name="lastName" nillable="true" type="xsd:string"/>
+     <element name="loginDate" nillable="true" type="xsd:string"/>
+     <element name="loginTime" type="xsd:long"/>
+     <element name="memberId" type="xsd:int"/>
+     <element name="memberType" type="xsd:int"/>
+     <element name="membership" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="pendingInvoices" nillable="true" type="impl:ArrayOf_tns1_InvoiceInfo"/>
+     <element name="phoneNo" nillable="true" type="xsd:string"/>
+     <element name="rentedMovies" nillable="true" type="impl:ArrayOf_tns1_MovieInfo"/>
+     <element name="state" nillable="true" type="xsd:string"/>
+     <element name="status" type="xsd:int"/>
+     <element name="street1" nillable="true" type="xsd:string"/>
+     <element name="street2" nillable="true" type="xsd:string"/>
+     <element name="zipcode" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://exceptions" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://DefaultNamespace"/>
+   <import namespace="http://beans"/>
+   <complexType name="DataSourceException">
+    <sequence/>
+   </complexType>
+   <complexType name="CustomException">
+    <sequence/>
+   </complexType>
+   <complexType name="InvalidArgumentException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="signOutRequest">
+
+      <wsdl:part element="impl:signOut" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="payBalanceRequest">
+
+      <wsdl:part element="impl:payBalance" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMembersRequest">
+
+      <wsdl:part element="impl:getMembers" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="signInResponse">
+
+      <wsdl:part element="impl:signInResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="generateBillRequest">
+
+      <wsdl:part element="impl:generateBill" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMemberResponse">
+
+      <wsdl:part element="impl:deleteMemberResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMovieResponse">
+
+      <wsdl:part element="impl:deleteMovieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="signOutResponse">
+
+      <wsdl:part element="impl:signOutResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="CustomException">
+
+      <wsdl:part element="impl:fault1" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editMemberResponse">
+
+      <wsdl:part element="impl:editMemberResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMemberRequest">
+
+      <wsdl:part element="impl:deleteMember" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMoviesResponse">
+
+      <wsdl:part element="impl:getMoviesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="signInRequest">
+
+      <wsdl:part element="impl:signIn" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rentMovieRequest">
+
+      <wsdl:part element="impl:rentMovie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidArgumentException">
+
+      <wsdl:part element="impl:fault2" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnMovieResponse">
+
+      <wsdl:part element="impl:returnMovieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rentMovieResponse">
+
+      <wsdl:part element="impl:rentMovieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addMemberRequest">
+
+      <wsdl:part element="impl:addMember" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="DataSourceException">
+
+      <wsdl:part element="impl:fault" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="payBalanceResponse">
+
+      <wsdl:part element="impl:payBalanceResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addMovieResponse">
+
+      <wsdl:part element="impl:addMovieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMoviesRequest">
+
+      <wsdl:part element="impl:getMovies" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMovieRequest">
+
+      <wsdl:part element="impl:deleteMovie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editMovieRequest">
+
+      <wsdl:part element="impl:editMovie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMembersResponse">
+
+      <wsdl:part element="impl:getMembersResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addMovieRequest">
+
+      <wsdl:part element="impl:addMovie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editMovieResponse">
+
+      <wsdl:part element="impl:editMovieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addMemberResponse">
+
+      <wsdl:part element="impl:addMemberResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editMemberRequest">
+
+      <wsdl:part element="impl:editMember" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="generateBillResponse">
+
+      <wsdl:part element="impl:generateBillResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnMovieRequest">
+
+      <wsdl:part element="impl:returnMovie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="VideoLibrarySystem">
+
+      <wsdl:operation name="getMembers">
+
+         <wsdl:input message="impl:getMembersRequest" name="getMembersRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMembersResponse" name="getMembersResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addMember">
+
+         <wsdl:input message="impl:addMemberRequest" name="addMemberRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addMemberResponse" name="addMemberResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:InvalidArgumentException" name="InvalidArgumentException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="signIn">
+
+         <wsdl:input message="impl:signInRequest" name="signInRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:signInResponse" name="signInResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:InvalidArgumentException" name="InvalidArgumentException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="signOut">
+
+         <wsdl:input message="impl:signOutRequest" name="signOutRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:signOutResponse" name="signOutResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:InvalidArgumentException" name="InvalidArgumentException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMember">
+
+         <wsdl:input message="impl:deleteMemberRequest" name="deleteMemberRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteMemberResponse" name="deleteMemberResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:InvalidArgumentException" name="InvalidArgumentException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editMember">
+
+         <wsdl:input message="impl:editMemberRequest" name="editMemberRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:editMemberResponse" name="editMemberResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:CustomException" name="CustomException">
+
+       </wsdl:fault>
+
+         <wsdl:fault message="impl:InvalidArgumentException" name="InvalidArgumentException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addMovie">
+
+         <wsdl:input message="impl:addMovieRequest" name="addMovieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addMovieResponse" name="addMovieResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:DataSourceException" name="DataSourceException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editMovie">
+
+         <wsdl:input message="impl:editMovieRequest" name="editMovieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:editMovieResponse" name="editMovieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMovie">
+
+         <wsdl:input message="impl:deleteMovieRequest" name="deleteMovieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteMovieResponse" name="deleteMovieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMovies">
+
+         <wsdl:input message="impl:getMoviesRequest" name="getMoviesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMoviesResponse" name="getMoviesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rentMovie">
+
+         <wsdl:input message="impl:rentMovieRequest" name="rentMovieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:rentMovieResponse" name="rentMovieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="returnMovie">
+
+         <wsdl:input message="impl:returnMovieRequest" name="returnMovieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:returnMovieResponse" name="returnMovieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="payBalance">
+
+         <wsdl:input message="impl:payBalanceRequest" name="payBalanceRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:payBalanceResponse" name="payBalanceResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="generateBill">
+
+         <wsdl:input message="impl:generateBillRequest" name="generateBillRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:generateBillResponse" name="generateBillResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="VideoLibrarySystemSoapBinding" type="impl:VideoLibrarySystem">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getMembers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMembersRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMembersResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addMemberRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addMemberResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidArgumentException">
+
+            <wsdlsoap:fault name="InvalidArgumentException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="signIn">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="signInRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="signInResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidArgumentException">
+
+            <wsdlsoap:fault name="InvalidArgumentException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="signOut">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="signOutRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="signOutResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidArgumentException">
+
+            <wsdlsoap:fault name="InvalidArgumentException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteMemberRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteMemberResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidArgumentException">
+
+            <wsdlsoap:fault name="InvalidArgumentException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="editMemberRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="editMemberResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="CustomException">
+
+            <wsdlsoap:fault name="CustomException" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidArgumentException">
+
+            <wsdlsoap:fault name="InvalidArgumentException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addMovie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addMovieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addMovieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="DataSourceException">
+
+            <wsdlsoap:fault name="DataSourceException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editMovie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="editMovieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="editMovieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMovie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteMovieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteMovieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMovies">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMoviesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMoviesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rentMovie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="rentMovieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="rentMovieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="returnMovie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="returnMovieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="returnMovieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="payBalance">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="payBalanceRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="payBalanceResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="generateBill">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="generateBillRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="generateBillResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="VideoLibrarySystemService">
+
+      <wsdl:port binding="impl:VideoLibrarySystemSoapBinding" name="VideoLibrarySystem">
+
+         <wsdlsoap:address location="http://localhost:8080/VideoLibraryServer/services/VideoLibrarySystem"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

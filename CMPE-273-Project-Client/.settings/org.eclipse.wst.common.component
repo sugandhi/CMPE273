@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="CMPE-273-Project-Client">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="CMPE-273-Project-Client"/>
+        <property name="java-output-path" value="/CMPE-273-Project-Client/build/classes"/>
+    </wb-module>
+</project-modules>

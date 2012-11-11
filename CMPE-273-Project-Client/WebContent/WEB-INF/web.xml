@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  	<display-name>CMPE-273-Project-Client</display-name>
+	<listener>
+		<display-name>StartupListener</display-name>
+		<listener-class>listeners.StartupListener</listener-class>
+	</listener>  
+  	<session-config>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+  	<servlet>
+    	<display-name>ClientServlet</display-name>
+    	<servlet-name>LibraryServlet</servlet-name>
+    	<servlet-class>servlets.VideoLibraryClientServlet</servlet-class>
+		<init-param>
+			<param-name>mapping-file</param-name>
+			<param-value>/WEB-INF/mappings.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>    	
+ 	 </servlet>
+  	<servlet-mapping>
+    	<servlet-name>LibraryServlet</servlet-name>
+    	<url-pattern>/action/*</url-pattern>
+  	</servlet-mapping>
+  	<welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+  	</welcome-file-list>
+</web-app>
